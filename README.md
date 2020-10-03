@@ -17,5 +17,5 @@ Tool that will encode and decode a text by [Caesar cipher](https://en.wikipedia.
 **Usage example:**
 
 ```bash
-node src/index.js -a encode -s 7 -i "./input.txt" -o "./output.txt"
+node src/index.js -a encode -s 7 -i "input.txt" -o "output.txt"
 ```
