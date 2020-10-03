@@ -2,7 +2,7 @@
   "name": "caesar-cipher-cli",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest",
     "start": "node src/index.js"
@@ -13,5 +13,8 @@
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "minimist": "^1.2.5"
   }
 }
