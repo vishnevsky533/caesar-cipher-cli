@@ -1,5 +1,5 @@
-const { Transform } = require('stream');
-const {codeString} = require('./encryption')
+const { Transform } = require("stream");
+const { codeString } = require("./encryption");
 module.exports = class TransformStream extends Transform {
   constructor(data) {
     super();
@@ -8,10 +8,15 @@ module.exports = class TransformStream extends Transform {
   }
   _transform(chunk, encoding, callback) {
     try {
-      this.push(codeString(chunk.toString(),  this.action==='encode'? this.shift : -this.shift));
+      this.push(
+        codeString(
+          chunk.toString(),
+          this.action === "encode" ? this.shift : -this.shift
+        )
+      );
       callback();
     } catch (err) {
       callback(err);
     }
   }
-}
+};
