@@ -14,12 +14,18 @@ if (source) {
         `${path.join(__dirname, input)}`,
         fs.constants.F_OK | fs.constants.R_OK
       );
+      if (fs.statSync(path.join(__dirname, input)).isDirectory()){
+        throw new Error('1');
+      }
     }
     if (output) {
       fs.accessSync(
         `${path.join(__dirname, output)}`,
         fs.constants.F_OK | fs.constants.R_OK | fs.constants.W_OK
       );
+      if (fs.statSync(path.join(__dirname, output)).isDirectory()){
+        throw new Error('1');
+      }
     }
     const readStream = input
       ? fs.createReadStream(path.join(__dirname, input))
