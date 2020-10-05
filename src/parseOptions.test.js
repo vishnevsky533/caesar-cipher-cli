@@ -1,3 +1,4 @@
+const path = require("path");
 const parse = require("./parseOptions");
 
 test("It should transform to new object", () => {
@@ -6,40 +7,40 @@ test("It should transform to new object", () => {
   ).toEqual({
     action: "decode",
     shift: 5,
-    input: "c:/input.txt",
-    output: "./output.txt"
+    input: path.join("c:/input.txt"),
+    output: path.join("./output.txt")
   });
   expect(
     parse({ a: "decode", shift: 5, i: "c:/input.txt", o: "./output.txt" })
   ).toEqual({
     action: "decode",
     shift: 5,
-    input: "c:/input.txt",
-    output: "./output.txt"
+    input: path.join("c:/input.txt"),
+    output: path.join("./output.txt")
   });
   expect(
     parse({ a: "decode", s: 5, input: "c:/input.txt", o: "./output.txt" })
   ).toEqual({
     action: "decode",
     shift: 5,
-    input: "c:/input.txt",
-    output: "./output.txt"
+    input: path.join("c:/input.txt"),
+    output: path.join("./output.txt")
   });
   expect(
     parse({ action: "decode", s: 5, i: "c:/input.txt", output: "./output.txt" })
   ).toEqual({
     action: "decode",
     shift: 5,
-    input: "c:/input.txt",
-    output: "./output.txt"
+    input: path.join("c:/input.txt"),
+    output: path.join("./output.txt")
   });
   expect(
     parse({ a: "decode", shift: 5, input: "c:/input.txt", o: "./output.txt" })
   ).toEqual({
     action: "decode",
     shift: 5,
-    input: "c:/input.txt",
-    output: "./output.txt"
+    input: path.join("c:/input.txt"),
+    output: path.join("./output.txt")
   });
 });
 test("It should check for required options", () => {

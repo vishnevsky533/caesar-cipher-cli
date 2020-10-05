@@ -1,7 +1,8 @@
 const fs = require("fs");
-const path = require("path");
 const { pipeline } = require("stream");
+const colors = require('colors');
 const TransformStream = require("./transform");
+
 const argv = require("minimist")(process.argv.slice(2));
 console.log("Hello, it's started with options: ", argv);
 
@@ -11,39 +12,43 @@ if (source) {
   try {
     if (input) {
       fs.accessSync(
-        `${path.join(__dirname, input)}`,
+        `${input}`,
         fs.constants.F_OK | fs.constants.R_OK
       );
-      if (fs.statSync(path.join(__dirname, input)).isDirectory()){
+      if (fs.statSync(input).isDirectory()){
         throw new Error('1');
       }
     }
     if (output) {
       fs.accessSync(
-        `${path.join(__dirname, output)}`,
+        `${output}`,
         fs.constants.F_OK | fs.constants.R_OK | fs.constants.W_OK
       );
-      if (fs.statSync(path.join(__dirname, output)).isDirectory()){
+      if (fs.statSync(output).isDirectory()){
         throw new Error('1');
       }
     }
     const readStream = input
-      ? fs.createReadStream(path.join(__dirname, input))
+      ? fs.createReadStream(input)
       : process.stdin;
     const writeStream = output
-      ? fs.createWriteStream(path.join(__dirname, output), { flags: "a+" })
+      ? fs.createWriteStream(output, { flags: "a+" })
       : process.stdout;
 
     const transformStream = new TransformStream({ shift, action });
     pipeline(readStream, transformStream, writeStream, err => {
       if (err) {
         console.error(err);
+      } else {
+        if (input){
+          console.log('Success!'.green)
+        }
       }
     });
   } catch (err) {
     process.on("exit", () => {
-      process.stderr.write(`Some problem with files\n`);
-      console.error(`Exiting with code: ${10}`);
+      process.stderr.write(`Some problem with files\n`.yellow);
+      console.error(`Exiting with code: ${10}`.red);
       process.exit(10);
     });
   }
